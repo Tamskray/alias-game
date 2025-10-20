@@ -14,15 +14,7 @@ function App() {
     setIsTeamsChosen(true);
   };
 
-  return (
-    <>
-      {isTeamsChosen ? (
-        <Game teams={teams} />
-      ) : (
-        <Teams onSubmitTeams={onSubmitTeams} />
-      )}
-    </>
-  );
+  return <>{isTeamsChosen ? <Game teams={teams} /> : <Teams onSubmitTeams={onSubmitTeams} />}</>;
 }
 
 export default App;

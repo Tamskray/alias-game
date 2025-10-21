@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { container } from "./styles";
+import { container, formContainer, title } from "./styles";
 
 function Teams({ onSubmitTeams }) {
   const [team1, setTeam1] = useState("");
@@ -18,25 +18,27 @@ function Teams({ onSubmitTeams }) {
 
   return (
     <div style={container}>
-      <h1>Choose Teams</h1>
-      <input
-        type="text"
-        placeholder="Team 1 Name"
-        value={team1}
-        onChange={(e) => setTeam1(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Team 2 Name"
-        value={team2}
-        onChange={(e) => setTeam2(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Team 3 Name"
-        value={team3}
-        onChange={(e) => setTeam3(e.target.value)}
-      />
+      <div style={formContainer}>
+        <h1 style={title}>Teams</h1>
+        <input
+          type="text"
+          placeholder="Team 1 Name"
+          value={team1}
+          onChange={(e) => setTeam1(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Team 2 Name"
+          value={team2}
+          onChange={(e) => setTeam2(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Team 3 Name"
+          value={team3}
+          onChange={(e) => setTeam3(e.target.value)}
+        />
+      </div>
       <button onClick={handleSubmitTeams}>Start Game</button>
     </div>
   );

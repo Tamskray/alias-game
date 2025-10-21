@@ -6,14 +6,11 @@ export const container = {
   height: "90dvh",
 };
 
-export const formContainer = {
+export const buttonContainer = {
   display: "flex",
   flexDirection: "column",
-  gap: "16px",
 };
 
-export const title = {
-  fontSize: "52px",
-  color: "#6640f5",
-  lineHeight: "52px",
+export const currentTeamText = {
+  fontSize: "20px",
 };

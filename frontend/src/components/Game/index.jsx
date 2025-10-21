@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import CurrentResults from "./CurrentResults";
 import Round from "./Round";
+import { buttonContainer, container, currentTeamText } from "./styles";
 
 const WINNING_SCORE = 10;
 const TEAM_LEAD = 1;
@@ -77,18 +78,18 @@ function Game({ teams }) {
 
   return (
     <div>
-      <h1>Game</h1>
-
-      {!isRoundActive ? (
-        <>
-          <CurrentResults teams={teamsState} />
-          <p>
-            Current Team: <b>{teamsState[activeTeamIndex].name}</b>
-          </p>
-          <button onClick={() => setIsRoundActive(true)}>Start Round</button>
-        </>
-      ) : (
+      {isRoundActive ? (
         <Round onRoundEnd={handleRoundEnd} currentTeam={teamsState[activeTeamIndex]} />
+      ) : (
+        <div style={container}>
+          <CurrentResults teams={teamsState} />
+          <div style={buttonContainer}>
+            <p style={currentTeamText}>
+              Current Team: <b>{teamsState[activeTeamIndex].name}</b>
+            </p>
+            <button onClick={() => setIsRoundActive(true)}>Start Round</button>
+          </div>
+        </div>
       )}
     </div>
   );

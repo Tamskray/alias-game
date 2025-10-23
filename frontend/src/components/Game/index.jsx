@@ -30,17 +30,6 @@ function Game({ teams }) {
   console.log(usedWordsRef);
 
   const getNextWord = () => {
-    // if (usedWordsRef.current.size === WORDS.length) {
-    //   usedWordsRef.current.clear();
-    // }
-
-    // const unused = WORDS.filter((word) => !usedWordsRef.current.has(word));
-    // const idx = Math.floor(Math.random() * unused.length);
-    // const chosen = unused[idx];
-
-    // usedWordsRef.current.add(chosen);
-
-    // return chosen;
     if (currentWordIndexRef.current >= wordsShuffled.length) {
       const reshuffled = shuffleArray(WORDS);
       setWordsShuffled(reshuffled);

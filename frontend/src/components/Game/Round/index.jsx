@@ -27,12 +27,12 @@ function Round({ onRoundEnd, currentTeam, getNextWord }) {
       return;
     }
 
-    const timer = setTimeout(() => {
+    const intervalId = setInterval(() => {
       setTimeLeft((t) => t - 1);
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [timeLeft, correctCount, onRoundEnd]);
+    return () => clearInterval(intervalId);
+  }, [timeLeft, onRoundEnd]);
 
   const correctWord = () => {
     setCorrectCount((c) => c + 1);

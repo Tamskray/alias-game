@@ -12,7 +12,7 @@ import {
 } from "./styles";
 
 function Round({ onRoundEnd, currentTeam, getNextWord }) {
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(7);
   const [currentWord, setCurrentWord] = useState("");
   const [correctCount, setCorrectCount] = useState(0);
 

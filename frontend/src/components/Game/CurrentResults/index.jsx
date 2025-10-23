@@ -1,10 +1,12 @@
+import { resultsContainer } from "./styles";
+
 function CurrentResults({ teams }) {
   return (
-    <div>
-      <h2>Current Results</h2>
+    <div style={resultsContainer}>
+      <h3>Current Results</h3>
       {teams.map((team) => (
         <div key={team.id}>
-          {team.name} - {team.score}
+          {team.name} - <b>{team.score}</b>
         </div>
       ))}
     </div>

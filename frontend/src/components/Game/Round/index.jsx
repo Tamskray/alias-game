@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { container } from "../styles";
+import { resultsContainer } from "../CurrentResults/styles";
 import {
   buttonsContainer,
   currentTeamText,
@@ -9,18 +10,16 @@ import {
   nextWordBtn,
   skipWordBtn,
 } from "./styles";
-import { resultsContainer } from "../CurrentResults/styles";
 
-const WORDS = ["apple", "mountain", "doctor", "snow", "river", "jungle"];
-
-function Round({ onRoundEnd, currentTeam }) {
+function Round({ onRoundEnd, currentTeam, getNextWord }) {
   const [timeLeft, setTimeLeft] = useState(10);
   const [currentWord, setCurrentWord] = useState("");
   const [correctCount, setCorrectCount] = useState(0);
 
   useEffect(() => {
-    setCurrentWord(getRandomWord());
-  }, []);
+    const nextWord = getNextWord();
+    setCurrentWord(nextWord);
+  }, [getNextWord]);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -35,18 +34,13 @@ function Round({ onRoundEnd, currentTeam }) {
     return () => clearTimeout(timer);
   }, [timeLeft, correctCount, onRoundEnd]);
 
-  const getRandomWord = () => {
-    const index = Math.floor(Math.random() * WORDS.length);
-    return WORDS[index];
-  };
-
   const correctWord = () => {
     setCorrectCount((c) => c + 1);
-    setCurrentWord(getRandomWord());
+    setCurrentWord(getNextWord());
   };
 
   const skipWord = () => {
-    setCurrentWord(getRandomWord());
+    setCurrentWord(getNextWord());
   };
 
   return (

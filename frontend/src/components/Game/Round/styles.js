@@ -37,10 +37,12 @@ export const word = {
 export const nextWordBtn = {
   fontSize: "32px",
   padding: "12px 24px",
+  backgroundColor: "#7FE85A",
+  color: "black",
 };
 
 export const skipWordBtn = {
   fontSize: "32px",
   padding: "12px 24px",
-  backgroundColor: "#8c17f3ff",
+  backgroundColor: "#c01515ff",
 };

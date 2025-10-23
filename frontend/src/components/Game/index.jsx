@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import CurrentResults from "./CurrentResults";
 import Round from "./Round";
 import { buttonContainer, container, currentTeamText } from "./styles";
+import { WORDS } from "./words";
 
 const WINNING_SCORE = 10;
 const TEAM_LEAD = 1;
+
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
 function Game({ teams }) {
   const [teamsState, setTeamsState] = useState(teams);
@@ -13,6 +23,37 @@ function Game({ teams }) {
   const [isRoundActive, setIsRoundActive] = useState(false);
   const [someoneReachedThreshold, setSomeoneReachedThreshold] = useState(false);
   const [winner, setWinner] = useState(null);
+
+  const [wordsShuffled, setWordsShuffled] = useState(() => shuffleArray(WORDS));
+  const currentWordIndexRef = useRef(0);
+  const usedWordsRef = useRef(new Set());
+  console.log(usedWordsRef);
+
+  const getNextWord = () => {
+    // if (usedWordsRef.current.size === WORDS.length) {
+    //   usedWordsRef.current.clear();
+    // }
+
+    // const unused = WORDS.filter((word) => !usedWordsRef.current.has(word));
+    // const idx = Math.floor(Math.random() * unused.length);
+    // const chosen = unused[idx];
+
+    // usedWordsRef.current.add(chosen);
+
+    // return chosen;
+    if (currentWordIndexRef.current >= wordsShuffled.length) {
+      const reshuffled = shuffleArray(WORDS);
+      setWordsShuffled(reshuffled);
+      currentWordIndexRef.current = 0;
+      usedWordsRef.current.clear();
+    }
+
+    const chosen = wordsShuffled[currentWordIndexRef.current];
+    usedWordsRef.current.add(chosen);
+    currentWordIndexRef.current += 1;
+
+    return chosen;
+  };
 
   const handleRoundEnd = (correctWordsCount) => {
     const prevTeams = teamsState;
@@ -79,7 +120,11 @@ function Game({ teams }) {
   return (
     <div>
       {isRoundActive ? (
-        <Round onRoundEnd={handleRoundEnd} currentTeam={teamsState[activeTeamIndex]} />
+        <Round
+          onRoundEnd={handleRoundEnd}
+          currentTeam={teamsState[activeTeamIndex]}
+          getNextWord={getNextWord}
+        />
       ) : (
         <div style={container}>
           <CurrentResults teams={teamsState} />

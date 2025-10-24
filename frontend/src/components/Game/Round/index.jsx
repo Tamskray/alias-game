@@ -22,6 +22,7 @@ function Round({ onRoundEnd, currentTeam, getNextWord }) {
   const [timeLeft, setTimeLeft] = useState(16);
   const [currentWord, setCurrentWord] = useState("");
   const [correctCount, setCorrectCount] = useState(0);
+  const [roundOverPending, setRoundOverPending] = useState(false);
 
   const playSound = useSoundPlayer();
 
@@ -32,16 +33,19 @@ function Round({ onRoundEnd, currentTeam, getNextWord }) {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      onRoundEnd(correctCount);
+      // onRoundEnd(correctCount);
+      setRoundOverPending(true);
       return;
     }
 
-    const intervalId = setInterval(() => {
-      setTimeLeft((t) => t - 1);
-    }, 1000);
+    if (!roundOverPending) {
+      const intervalId = setInterval(() => {
+        setTimeLeft((t) => t - 1);
+      }, 1000);
 
-    return () => clearInterval(intervalId);
-  }, [timeLeft, onRoundEnd]);
+      return () => clearInterval(intervalId);
+    }
+  }, [timeLeft, onRoundEnd, roundOverPending]);
 
   useEffect(() => {
     if (timeLeft === 9) {
@@ -55,8 +59,18 @@ function Round({ onRoundEnd, currentTeam, getNextWord }) {
 
   const correctWord = () => {
     playSound(nextWordSound);
-    setCorrectCount((c) => c + 1);
-    setCurrentWord(getNextWord());
+
+    if (roundOverPending) {
+      setCorrectCount((c) => {
+        const newCount = c + 1;
+        onRoundEnd(newCount);
+        return newCount;
+      });
+    } else {
+      setCorrectCount((c) => c + 1);
+      const nextWord = getNextWord();
+      setCurrentWord(nextWord);
+    }
   };
 
   const skipWord = () => {
@@ -82,9 +96,11 @@ function Round({ onRoundEnd, currentTeam, getNextWord }) {
         <button style={nextWordBtn} onClick={correctWord}>
           Next Word
         </button>
-        <button style={skipWordBtn} onClick={skipWord}>
-          Skip
-        </button>
+        {!roundOverPending && (
+          <button style={skipWordBtn} onClick={skipWord} disabled={roundOverPending}>
+            Skip
+          </button>
+        )}
       </div>
     </div>
   );

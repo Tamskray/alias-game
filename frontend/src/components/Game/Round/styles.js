@@ -8,6 +8,12 @@ export const currentTeamText = {
   fontSize: "32px",
 };
 
+export const currentCountText = {
+  fontSize: "48px",
+  color: "#1d2b92ff",
+  fontWeight: "600",
+};
+
 export const flexContainer = {
   display: "flex",
   flexDirection: "column",

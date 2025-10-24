@@ -29,3 +29,11 @@ export const currentTeamText = {
   fontSize: "36px",
   color: "#6640f5",
 };
+
+export const flexRow = {
+  display: "flex",
+  flexDirection: "row",
+  justiftyContent: "space-between",
+  alignItems: "center",
+  gap: "100px",
+};

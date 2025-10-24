@@ -1,9 +1,23 @@
-import { currentTeamText, resultsContainer, scoreText, teamGradients, teamStyles } from "./styles";
+import { WINNING_SCORE } from "..";
+
+import {
+  currentTeamText,
+  flexRow,
+  resultsContainer,
+  scoreText,
+  teamGradients,
+  teamStyles,
+} from "./styles";
 
 function CurrentResults({ teams }) {
   return (
     <div style={resultsContainer}>
-      <h3 style={currentTeamText}>Current Results</h3>
+      <div style={currentTeamText}>
+        To win: <b>{WINNING_SCORE}</b>
+      </div>
+      <div style={flexRow}>
+        <h3 style={currentTeamText}>Current Results</h3>
+      </div>
       {teams.map((team, index) => (
         <div
           key={team.id}

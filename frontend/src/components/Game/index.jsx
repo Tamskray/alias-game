@@ -10,7 +10,7 @@ import useSoundPlayer from "../../hooks/useSoundPlayer";
 import startRoundSound from "../../assets/game-start.mp3";
 import winSound from "../../assets/win.mp3";
 
-export const WINNING_SCORE = 10;
+export const WINNING_SCORE = 50;
 const TEAM_LEAD = 1;
 
 function shuffleArray(array) {

@@ -19,7 +19,7 @@ import roundOverSound from "../../../assets/time-over.mp3";
 import wowSound from "../../../assets/wow.mp3";
 
 function Round({ onRoundEnd, currentTeam, getNextWord }) {
-  const [timeLeft, setTimeLeft] = useState(16);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [currentWord, setCurrentWord] = useState("");
   const [correctCount, setCorrectCount] = useState(0);
   const [roundOverPending, setRoundOverPending] = useState(false);
